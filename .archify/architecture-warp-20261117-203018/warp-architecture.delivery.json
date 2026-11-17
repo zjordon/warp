@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "abb0d352-ec79-43b7-b3ee-48209c95761a",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "D:\\dev\\git\\z_jordon\\fork\\reading\\warp\\.archify\\architecture-warp-20261117-203018\\candidate.json",
+  "output": "D:\\dev\\git\\z_jordon\\fork\\reading\\warp\\.archify\\architecture-warp-20261117-203018\\warp-architecture.html",
+  "specification": {
+    "sha256": "8e94cb289587b13e7e29b9825fba656087aabb324ee69ac069eba2ff67bf9292",
+    "bytes": 9077
+  },
+  "artifact": {
+    "sha256": "d8d0f18e8738623e4df50dec407bce3189500bc4078a996136434e865b14ded7",
+    "bytes": 839727
+  }
+}

@@ -1,0 +1,437 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Warp 客户端架构",
+    "locale": "zh-CN",
+    "output": ".archify/architecture-warp-20261117-203018/warp-architecture.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/zjordon/warp.git",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "0f81fad401df526e440083f95efa287a2e02f5b3"
+    }
+  },
+  "components": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "用户",
+      "sublabel": "开发者",
+      "pos": [
+        370,
+        40
+      ],
+      "size": [
+        110,
+        56
+      ]
+    },
+    {
+      "id": "gui",
+      "type": "frontend",
+      "label": "GUI 桌面应用",
+      "sublabel": "app crate · winit + wgpu",
+      "pos": [
+        110,
+        150
+      ],
+      "size": [
+        155,
+        80
+      ],
+      "sources": [
+        {
+          "path": "app/src/lib.rs",
+          "line": 784,
+          "label": "run() 入口"
+        },
+        {
+          "path": "app/src/lib.rs",
+          "line": 1504,
+          "label": "initialize_app"
+        },
+        {
+          "path": "app/src/bin/oss.rs",
+          "line": 10,
+          "label": "渠道二进制"
+        }
+      ]
+    },
+    {
+      "id": "uicore",
+      "type": "backend",
+      "label": "warpui · warpui_core",
+      "sublabel": "UI 框架 · Entity/Effects · GUI+TUI 双元素树",
+      "pos": [
+        345,
+        140
+      ],
+      "size": [
+        175,
+        84
+      ],
+      "sources": [
+        {
+          "path": "crates/warpui_core/src/core/app.rs",
+          "line": 76,
+          "label": "App 内核"
+        },
+        {
+          "path": "crates/warpui_core/src/elements/tui/mod.rs",
+          "line": 297,
+          "label": "TuiElement"
+        }
+      ]
+    },
+    {
+      "id": "tui",
+      "type": "frontend",
+      "label": "无头 TUI",
+      "sublabel": "warp_tui · crossterm",
+      "pos": [
+        590,
+        150
+      ],
+      "size": [
+        155,
+        80
+      ],
+      "sources": [
+        {
+          "path": "crates/warp_tui/src/session.rs",
+          "line": 196,
+          "label": "run()"
+        },
+        {
+          "path": "app/src/lib.rs",
+          "line": 976,
+          "label": "run_tui"
+        }
+      ]
+    },
+    {
+      "id": "surfaces",
+      "type": "backend",
+      "label": "应用共享表面",
+      "sublabel": "terminal · ai · drive · settings（tui_export）",
+      "pos": [
+        355,
+        330
+      ],
+      "size": [
+        185,
+        90
+      ],
+      "sources": [
+        {
+          "path": "app/src/lib.rs",
+          "line": 88,
+          "label": "tui_export"
+        },
+        {
+          "path": "app/src/lib.rs",
+          "line": 1019,
+          "label": "run_internal"
+        }
+      ]
+    },
+    {
+      "id": "termcore",
+      "type": "backend",
+      "label": "终端引擎 warp_terminal",
+      "sublabel": "vte 解析 · BlockGrid · PTY/ConPTY",
+      "pos": [
+        40,
+        510
+      ],
+      "size": [
+        170,
+        90
+      ],
+      "sources": [
+        {
+          "path": "crates/warp_terminal/src/local_tty/spawner.rs",
+          "line": 144,
+          "label": "PtySpawner"
+        },
+        {
+          "path": "crates/warp_terminal/src/local_tty/event_loop.rs",
+          "line": 44,
+          "label": "PTY IO"
+        },
+        {
+          "path": "crates/warp_terminal/src/model/blockgrid.rs",
+          "line": 30,
+          "label": "BlockGrid"
+        }
+      ]
+    },
+    {
+      "id": "aicore",
+      "type": "backend",
+      "label": "AI 智能体引擎",
+      "sublabel": "ai + mcp：Agent Mode · LLM provider",
+      "pos": [
+        380,
+        510
+      ],
+      "size": [
+        160,
+        90
+      ],
+      "sources": [
+        {
+          "path": "crates/ai/src/lib.rs",
+          "line": 1,
+          "label": "agent 模块"
+        },
+        {
+          "path": "crates/mcp/src/lib.rs",
+          "line": 1,
+          "label": "MCP 客户端"
+        }
+      ]
+    },
+    {
+      "id": "cloudsync",
+      "type": "backend",
+      "label": "云对象同步",
+      "sublabel": "cloud_objects 族：Revision · SyncStatus",
+      "pos": [
+        620,
+        510
+      ],
+      "size": [
+        160,
+        84
+      ],
+      "sources": [
+        {
+          "path": "crates/cloud_objects/src/cloud_object/mod.rs",
+          "line": 272,
+          "label": "Revision"
+        },
+        {
+          "path": "crates/cloud_object_persistence/src/lib.rs",
+          "line": 22,
+          "label": "SQLite 持久化"
+        }
+      ]
+    },
+    {
+      "id": "shell",
+      "type": "external",
+      "label": "Shell 子进程",
+      "sublabel": "bash · zsh · fish · pwsh",
+      "pos": [
+        40,
+        690
+      ],
+      "size": [
+        145,
+        60
+      ],
+      "sources": [
+        {
+          "path": "crates/warp_terminal/src/bootstrap.rs",
+          "line": 54,
+          "label": "shell 钩子"
+        },
+        {
+          "path": "crates/warp_terminal/src/local_tty/unix.rs",
+          "line": 20,
+          "label": "openpty"
+        }
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "cloud",
+      "label": "LLM 提供商",
+      "sublabel": "托管模型 API",
+      "pos": [
+        390,
+        690
+      ],
+      "size": [
+        145,
+        60
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "SQLite",
+      "sublabel": "Diesel · 60+ 迁移",
+      "pos": [
+        600,
+        690
+      ],
+      "size": [
+        140,
+        64
+      ],
+      "sources": [
+        {
+          "path": "crates/persistence/src/schema.rs",
+          "line": 1,
+          "label": "Diesel schema"
+        },
+        {
+          "path": "crates/persistence/migrations/2021-10-18-232826_create_windows_and_tabs/up.sql",
+          "line": 1,
+          "label": "首个迁移"
+        }
+      ]
+    },
+    {
+      "id": "graphql",
+      "type": "backend",
+      "label": "GraphQL 客户端",
+      "sublabel": "warp_graphql · cynic 3",
+      "pos": [
+        770,
+        690
+      ],
+      "size": [
+        125,
+        64
+      ],
+      "sources": [
+        {
+          "path": "crates/graphql/build.rs",
+          "line": 1,
+          "label": "cynic 代码生成"
+        }
+      ]
+    },
+    {
+      "id": "server",
+      "type": "cloud",
+      "label": "warp-server",
+      "sublabel": "闭源后端 · 认证 / Drive",
+      "pos": [
+        770,
+        840
+      ],
+      "size": [
+        125,
+        70
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "user-gui",
+      "from": "user",
+      "to": "gui",
+      "label": "键盘 / 鼠标"
+    },
+    {
+      "id": "user-tui",
+      "from": "user",
+      "to": "tui",
+      "label": "终端 CLI"
+    },
+    {
+      "id": "gui-uicore",
+      "from": "gui",
+      "to": "uicore",
+      "label": "wgpu 渲染"
+    },
+    {
+      "id": "tui-uicore",
+      "from": "tui",
+      "to": "uicore",
+      "label": "绘制"
+    },
+    {
+      "id": "gui-surfaces",
+      "from": "gui",
+      "to": "surfaces",
+      "label": "initialize_app"
+    },
+    {
+      "id": "tui-surfaces",
+      "from": "tui",
+      "to": "surfaces",
+      "label": "tui_export 复用"
+    },
+    {
+      "id": "surfaces-termcore",
+      "from": "surfaces",
+      "to": "termcore",
+      "label": "TerminalModel"
+    },
+    {
+      "id": "surfaces-aicore",
+      "from": "surfaces",
+      "to": "aicore",
+      "label": "Agent Mode"
+    },
+    {
+      "id": "surfaces-cloudsync",
+      "from": "surfaces",
+      "to": "cloudsync",
+      "label": "Drive 同步"
+    },
+    {
+      "id": "termcore-shell",
+      "from": "termcore",
+      "to": "shell",
+      "label": "PTY I/O"
+    },
+    {
+      "id": "aicore-llm",
+      "from": "aicore",
+      "to": "llm",
+      "label": "SSE 流式"
+    },
+    {
+      "id": "cloudsync-db",
+      "from": "cloudsync",
+      "to": "db",
+      "label": "本地缓存"
+    },
+    {
+      "id": "cloudsync-graphql",
+      "from": "cloudsync",
+      "to": "graphql",
+      "label": "同步查询"
+    },
+    {
+      "id": "graphql-server",
+      "from": "graphql",
+      "to": "server",
+      "label": "GraphQL / WS"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "双前端一核心",
+      "items": [
+        "GUI 与 TUI 都经 run_internal → initialize_app 装配同一套应用表面",
+        "TUI 经 app::tui_export 复用 terminal / ai / drive / settings 模块"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "终端范式",
+      "items": [
+        "自研 PTY：Unix 走 nix openpty，Windows 走手写 ConPTY 绑定（conpty.dll）",
+        "shell 引导脚本注入钩子转义序列，命令与输出按 Block 划界"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "分层纪律",
+      "items": [
+        "warp_terminal 只依赖 warpui_core，不依赖平台后端与云 crate",
+        "warpui / warpui_core 以 MIT 单独开源，可独立复用"
+      ]
+    }
+  ]
+}
